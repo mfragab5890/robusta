@@ -130,7 +130,7 @@ class App extends Component {
   }
 
   render(){
-    const { unit, minimumTemp, maximumTemp, currentTemp, summary, currentLocation } = this.state
+    const { unit, minimumTemp, maximumTemp, currentTemp, summary, currentLocation, description } = this.state
     const currentDate = new Date()
     const dateString = currentDate.toString()
     const dateArray = dateString.split(" ");
