@@ -13,7 +13,7 @@ class App extends Component {
     currentLocation: '',
     latitude: '',
     longitudeL: '',
-    description,
+    description: '',
   }
 
   handleUnitChange = (value) => {
@@ -44,12 +44,14 @@ class App extends Component {
   }
 
   handleGetWeatherData = async () => {
+    const { unit } = this.state
     const api = "https://api.openweathermap.org/data/2.5/weather?"
     const API_KEY = "2d1745756e1f2fc74430bffdf7be77f3"
     const { latitude, longitude } = this.state
+    const units = unit === 'c' ? 'metric' : 'imperial'
     if (latitude && longitude) {
       return await (
-        fetch(`${api}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`)
+        fetch(`${api}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=${units}`)
           .then(res => res.json())
           .catch(err => {
             console.warn(err);
@@ -148,8 +150,8 @@ class App extends Component {
             </Grid.Column>
             <Grid.Column width={4}>
             <Button.Group floated='left'>
-              <Button onClick = {() => this.handleUnitChange('c')}>C</Button>
-              <Button onClick = {() => this.handleUnitChange('f')}>F</Button>
+              <Button onClick = {() => this.handleUnitChange('c')} basic = {unit === 'c'? true : false} >C</Button>
+              <Button onClick = {() => this.handleUnitChange('f')} basic = {unit === 'f'? true : false}>F</Button>
             </Button.Group>
             </Grid.Column>
           </Grid.Row>
